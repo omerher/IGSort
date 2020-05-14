@@ -1,3 +1,9 @@
-body{
+body {
     overflow-x: hidden;
+}
+
+
+#loadingButton {
+    display: none;
+    cursor: default;
 }
