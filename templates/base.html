@@ -23,10 +23,10 @@
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link active" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about_us.html">Link 1</a>
+            <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link 2</a>
