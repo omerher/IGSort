@@ -2,8 +2,12 @@ body {
     overflow-x: hidden;
 }
 
-
 #loadingButton {
     display: none;
     cursor: default;
+}
+
+.cards-container .card {
+    width: 33.3%;
+    float: left;
 }

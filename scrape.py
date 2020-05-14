@@ -53,9 +53,6 @@ class InstagramScaper:
         while len(self.data) < num_posts:
             info = self.get_user_info(account_id, max_id)  # get targeted user's posts
 
-            with open("dump.json", "w") as f:
-                json.dump(info, f, indent=2)
-
             # parse through all posts
             posts = [post['node'] for post in info["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
             for post in posts:

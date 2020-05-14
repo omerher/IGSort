@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_session import Session
 import scrape
 import time
 
@@ -8,37 +7,25 @@ app.secret_key = '1234'
 
 @app.route('/')
 def index():
-    session["username"] = ""
-    session["numPosts"] = ""
-    session["data"] = {}
-    
+    session["alert"] = False
     return render_template("index.html")
 
 @app.route('/about/')
 def about():
     return render_template("about.html")
 
-@app.route('/submit/', methods=['POST'])
-def submit():
-    username = request.form["username"]
-    if "@" in username:
-        username.strip("@")
-    num_posts = int(request.form["numPosts"])
-    data = scrape.scrape(username, num_posts)
-    
-    session["username"] = username
-    session["numPosts"] = num_posts
-    session["data"] = data
-    
-    return redirect(url_for('top_posts'))
-
-@app.route('/posts/')
+@app.route('/posts/', methods=['GET', 'POST'])
 def top_posts():
-    username = session["username"]
-    num_posts = session["numPosts"]
-    data = session["data"]
-    
-    return str(data)
+    if request.method == "POST":
+        username = request.form["username"]
+        if "@" in username:
+            username.strip("@")
+        num_posts = int(request.form["numPosts"])
+        data = scrape.scrape(username, num_posts)
+        
+        return render_template('posts.html', username=username, num_posts=num_posts, data=data)
+    else:
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
