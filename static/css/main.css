@@ -18,19 +18,3 @@ body {
         width: 33.3%;
     }
 }
-
-.card-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100px;
-    float: left;
-    border-left: 10%;
-    background-color: lightcoral;
-    border: 2px solid black;
-}
-
-.cards-container .card {
-    width: 33.3%;
-    float: left;
-}

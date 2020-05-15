@@ -7,21 +7,28 @@
 {% block body %}
 
 <div class="container">
-  <div class="card-columns mt-5">
-    {% for post in data %}
+  <div class="mt-5">
+    {% for posts in data | batch(3) %}
 
-      <div class="card mb-4">
-        <img class="img-fluid" src="{{ post['thumbnail'] }}" alt="Card image cap">
-        <div class="card-body">
-          <h6 class="card-title">
-            {{ '{:,}'.format(post["likes"]) }} likes
-            {% if post["media_type"] == "Video" %}
-              | {{ '{:,}'.format(post["views"]) }} views
-            {% endif %}
-          </h6>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <div class="row">
+      {% for post in posts %}
+        <div class="p-2 mb-4 col-xs-12 col-sm-6 col-lg-4">
+          <div class="card" style="padding: 0;">
+            <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
+            <div class="card-body">
+              <h6 class="card-title">
+                {{ '{:,}'.format(post["likes"]) }} likes
+                {% if post["media_type"] == "Video" %}
+                  | {{ '{:,}'.format(post["views"]) }} views
+                {% endif %}
+              </h6>
+              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+          </div>
         </div>
-      </div>
+
+      {% endfor %}
+    </div>
   
     {% endfor %}
   </div>
