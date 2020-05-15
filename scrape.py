@@ -65,7 +65,7 @@ class InstagramScaper:
                 except IndexError:
                     caption = ""
                 thumbnail = post["display_url"]
-                published_date = datetime.utcfromtimestamp(post["taken_at_timestamp"]).strftime('%d %b %Y | %H:%M UTC')  # formats time to string
+                published_date = datetime.utcfromtimestamp(post["taken_at_timestamp"]).strftime('%d %b, %Y %I:%M %p')  # formats time to string %d %b %Y - %H:%M UTC
                 # gets view of post if it is a video
                 if media_type == "Video":
                     views = post["video_view_count"]

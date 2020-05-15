@@ -12,17 +12,22 @@
 
     <div class="row">
       {% for post in posts %}
-        <div class="p-2 mb-4 col-xs-12 col-sm-6 col-lg-4">
+        <div class="p-3 mb-4 col-xs-12 col-md-6 col-lg-4">
           <div class="card" style="padding: 0;">
-            <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
+            <a href="{{ post['link'] }}" target="blank"><img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail"></a>
             <div class="card-body">
               <h6 class="card-title">
+                <a href="{{ post['link'] }}" target="blank">{{ post["media_type"] }}</a> ·
                 {{ '{:,}'.format(post["likes"]) }} likes
                 {% if post["media_type"] == "Video" %}
-                  | {{ '{:,}'.format(post["views"]) }} views
+                  ({{ '{:,}'.format(post["views"]) }} views)
                 {% endif %}
+                | {{ post["comments"] }} comments
               </h6>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">{{ post["caption"] }}</p>
+            </div>
+            <div class="card-footer">
+              {{ post["published_date"] }}
             </div>
           </div>
         </div>
@@ -35,5 +40,5 @@
 </div>
 
 
-
+<script src="{{ url_for('static', filename='js/posts.js') }}"></script>
 {% endblock body %}

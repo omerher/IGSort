@@ -6,15 +6,3 @@ body {
     display: none;
     cursor: default;
 }
-
-@media (min-width: 576px) {
-    .card-container {
-        width: 50%;
-    }
-}
-
-@media (min-width: 992px) {
-    .card-container {
-        width: 33.3%;
-    }
-}
