@@ -6,7 +6,7 @@
 
 {% block body %}
 
-<div class="profile mt-4">
+<div class="profile mt-4 border-bottom">
   <div class="container">
     <div class="row">
       <div class="col-md-4 p-3 text-lg-center">
@@ -14,13 +14,13 @@
       </div>
       <div class="col-md-8 p-3">
 
-        <div class="p-2 font-weight-normal" style="font-size: 1.25rem;">{{ profile['username'] }}</div>
+        <div class="p-2 font-weight-normal" style="font-size: 2rem;">{{ profile['username'] }}</div>
         
         <div>
           <div class="d-flex">
-            <div class="p-2"><span class="font-weight-bold">{{ profile['posts_count'] }}</span> Posts</div>
-            <div class="p-2"><span class="font-weight-bold">{{ profile['followers'] }}</span> Followers</div>
-            <div class="p-2"><span class="font-weight-bold">{{ profile['following'] }}</span> Following</div>
+            <div class="p-2"><span class="font-weight-bold">{{ '{:,}'.format(profile['posts_count']) }}</span> Posts</div>
+            <div class="p-2"><span class="font-weight-bold">{{ '{:,}'.format(profile['followers']) }}</span> Followers</div>
+            <div class="p-2"><span class="font-weight-bold">{{ '{:,}'.format(profile['following']) }}</span> Following</div>
           </div>
         </div>
         
