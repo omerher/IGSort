@@ -20,10 +20,14 @@ def top_posts():
         username = request.form["username"]
         if "@" in username:
             username.strip("@")
-        num_posts = int(request.form["numPosts"])
-        data = utils.scrape(username, num_posts)
         
         profile = utils.get_user_info(username)
+        
+        if profile["is_private"]:
+            pass
+        
+        num_posts = int(request.form["numPosts"])
+        data = utils.scrape(username, num_posts)
         
         return render_template('posts.html', username=username, num_posts=num_posts, data=data, profile=profile)
     else:
