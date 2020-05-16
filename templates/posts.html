@@ -37,6 +37,17 @@
   </div>
 </div>
 
+<div class="filters-div mt-4">
+  <div class="container text-center">
+    <div id="filterButtons" class="btn-group btn-group-lg" role="group" aria-label="Filter buttons group">
+      <button type="button" class="btn btn-primary" onclick="filterSelection('all')">All</button>
+      <button type="button" class="btn btn-secondary" onclick="filterSelection('Picture')">Pictures</button>
+      <button type="button" class="btn btn-secondary" onclick="filterSelection('Video')">Videos</button>
+      <button type="button" class="btn btn-secondary" onclick="filterSelection('Carousel')">Carousels</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="mt-4">
     {% for posts in data | batch(3) %}

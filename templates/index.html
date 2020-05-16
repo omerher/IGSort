@@ -6,10 +6,23 @@ IGSort
 
 {% block body %}
 
+<div class="container">
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %} 
+      {% for message in messages %}
+      <div class="alert alert-warning mt-4" role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
+
 <div class="row">
     
     <div class="form-container container mt-5 d-flex justify-content-center">
-      <form class="col-lg-6 col-md-8 col-sm-10 col-xs-12 shadow p-3 mb-5 bg-white rounded" action="{{ url_for('top_posts') }}" method="POST">
+      <form class="col-lg-6 col-md-8 col-sm-10 col-xs-12 shadow p-3 bg-white rounded" action="{{ url_for('top_posts') }}" method="POST">
         <div class="form-group">
           <label for="analyzeFormUsernameInput">Username</label>
           <input type="text" class="form-control" id="anayzeFormUsernameInput" placeholder="Enter username..." name="username">
