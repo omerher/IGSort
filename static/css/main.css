@@ -6,3 +6,14 @@ body {
     display: none;
     cursor: default;
 }
+
+#profile-picture {
+    width: 64px;
+}
+
+@media (min-width: 768px) {
+    #profile-picture {
+        width: 200px;
+    }
+}
+

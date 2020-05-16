@@ -45,9 +45,9 @@ class InstagramScaper:
         # check if the account has enough posts
 
         # CURRENTLY NOT WORKING
-        # user_posts = get_user_num_posts(account)
-        # if num_posts > user_posts:
-        #     num_posts = user_posts - 1
+        user_posts = get_user_num_posts(account)
+        if num_posts > user_posts:
+            num_posts = user_posts - 1
 
         max_id = ""
         while len(self.data) < num_posts:
@@ -102,3 +102,23 @@ def scrape(acc, num_posts):
     scraper = InstagramScaper()
     scraper.get_user_posts(acc, num_posts)
     return scraper.data
+
+def get_user_info(account):
+    r = requests.get(f"https://www.instagram.com/{account}/?__a=1").json()
+    with open("dump.json", "w") as f:
+        json.dump(r, f, indent=2)
+
+    username = account
+    full_name = r["graphql"]["user"]["full_name"]
+    followers = r["graphql"]["user"]["edge_followed_by"]["count"]
+    following = r["graphql"]["user"]["edge_follow"]["count"]
+    bio = r["graphql"]["user"]["biography"]
+    is_private = r["graphql"]["user"]["is_private"]
+    is_verified = r["graphql"]["user"]["is_verified"]
+    profile_picture = r["graphql"]["user"]["profile_pic_url_hd"]
+    posts_count = r["graphql"]["user"]["edge_owner_to_timeline_media"]["count"]
+
+    account_info = {"username": username, "full_name": full_name, "followers": followers, "following": following,
+                    "bio": bio, "is_private": is_private, "is_verified": is_verified, "profile_picture": profile_picture,
+                    "posts_count": posts_count}
+    return account_info

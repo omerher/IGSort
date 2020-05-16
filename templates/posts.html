@@ -6,8 +6,39 @@
 
 {% block body %}
 
+<div class="profile mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 p-3 text-lg-center">
+        <img class="rounded-circle" src="{{ profile['profile_picture']  }}" alt="Profile Picture" width="200px">
+      </div>
+      <div class="col-lg-8 p-3">
+
+        <div class="p-2 font-weight-normal" style="font-size: 1.25rem;">{{ profile['username'] }}</div>
+        
+        <div>
+          <div class="d-flex">
+            <div class="p-2"><span class="font-weight-bold">{{ profile['posts_count'] }}</span> Posts</div>
+            <div class="p-2"><span class="font-weight-bold">{{ profile['followers'] }}</span> Followers</div>
+            <div class="p-2"><span class="font-weight-bold">{{ profile['following'] }}</span> Following</div>
+          </div>
+        </div>
+        
+        <div class="p-2 font-weight-bold">{{ profile['full_name'] }}</div>
+
+        <div class="p-2">
+          {% for line in profile['bio'].split('\n') %}
+            {{ line }}<br>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
-  <div class="mt-5">
+  <div class="mt-4">
     {% for posts in data | batch(3) %}
 
     <div class="row">
@@ -16,15 +47,19 @@
           <div class="card" style="padding: 0;">
             <a href="{{ post['link'] }}" target="blank"><img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail"></a>
             <div class="card-body">
-              <h6 class="card-title">
+              <p class="card-title">
                 <a href="{{ post['link'] }}" target="blank">{{ post["media_type"] }}</a> ·
-                {{ '{:,}'.format(post["likes"]) }} likes
+                <strong>{{ '{:,}'.format(post["likes"]) }} likes</strong>
                 {% if post["media_type"] == "Video" %}
                   ({{ '{:,}'.format(post["views"]) }} views)
                 {% endif %}
                 | {{ post["comments"] }} comments
-              </h6>
-              <p class="card-text">{{ post["caption"] }}</p>
+              </p>
+              <p class="card-text">
+                {% for line in post['caption'].split('\n') %}
+                  {{ line }}<br>
+                {% endfor %}
+              </p>
             </div>
             <div class="card-footer">
               {{ post["published_date"] }}

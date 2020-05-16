@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import scrape
+import utils
 import time
 
 app = Flask(__name__)
@@ -21,9 +21,11 @@ def top_posts():
         if "@" in username:
             username.strip("@")
         num_posts = int(request.form["numPosts"])
-        data = scrape.scrape(username, num_posts)
+        data = utils.scrape(username, num_posts)
         
-        return render_template('posts.html', username=username, num_posts=num_posts, data=data)
+        profile = utils.get_user_info(username)
+        
+        return render_template('posts.html', username=username, num_posts=num_posts, data=data, profile=profile)
     else:
         return redirect(url_for('index'))
 
