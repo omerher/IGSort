@@ -105,8 +105,6 @@ def scrape(acc, num_posts):
 
 def get_user_info(account):
     r = requests.get(f"https://www.instagram.com/{account}/?__a=1").json()
-    with open("dump.json", "w") as f:
-        json.dump(r, f, indent=2)
 
     username = account
     full_name = r["graphql"]["user"]["full_name"]

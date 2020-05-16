@@ -16,3 +16,11 @@ body {
         width: 200px;
     }
 }
+
+.filterDiv {
+    display: none;
+}
+
+.show {
+    display: block;
+}
