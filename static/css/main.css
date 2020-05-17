@@ -8,7 +8,7 @@ body {
 }
 
 #profile-picture {
-    width: 64px;
+    width: 150px;
 }
 
 @media (min-width: 768px) {
