@@ -17,18 +17,16 @@ body {
     }
 }
 
-<<<<<<< HEAD
-#more-info-box{
+#more-info-box {
     transition: background-color 1s ease-in-out;
     transition-delay: 0s;
     border-radius: 40px;
 }
-#more-info-button{
+#more-info-button {
     cursor: pointer;
 }
 
 
-=======
 .filterDiv {
     display: none;
 }
@@ -70,4 +68,3 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
 }
->>>>>>> b983c4749098ca06a73ffb68c12fa4e6d4e7a846
