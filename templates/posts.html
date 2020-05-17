@@ -37,15 +37,30 @@
   </div>
 </div>
 
+<div class="filters-div mt-4">
+  <div class="container text-center">
+    <div id="filterButtons" class="btn-group btn-group-lg" role="group" aria-label="Filter buttons group">
+      <button type="button" class="btn btn-primary" onclick="filterSelection('all')">All</button>
+      <button type="button" class="btn btn-secondary" onclick="filterSelection('Photo')">Pictures</button>
+      <button type="button" class="btn btn-secondary" onclick="filterSelection('Video')">Videos</button>
+      <button type="button" class="btn btn-secondary" onclick="filterSelection('Carousel')">Carousels</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="mt-4">
     {% for posts in data | batch(3) %}
 
     <div class="row">
       {% for post in posts %}
-        <div class="p-3 mb-4 col-xs-12 col-md-6 col-lg-4">
+        <div class="p-3 mb-4 col-xs-12 col-md-6 col-lg-4 {{ post['media_type'] }} filterDiv">
           <div class="card" style="padding: 0;">
-            <a href="{{ post['link'] }}" target="blank"><img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail"></a>
+            <div class="post-thumbnail">
+              <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">  <!-- <a href="{{ post['link'] }}" target="blank"> -->
+              <div class="post-img-cover"></div>
+            </div>
+            
             <div class="card-body">
               <p class="card-title">
                 <a href="{{ post['link'] }}" target="blank">{{ post["media_type"] }}</a> ·
@@ -53,13 +68,14 @@
                 {% if post["media_type"] == "Video" %}
                   ({{ '{:,}'.format(post["views"]) }} views)
                 {% endif %}
-                | {{ post["comments"] }} comments
+                | {{ '{:,}'.format(post["comments"]) }} comments
               </p>
-              <p class="card-text">
-                {% for line in post['caption'].split('\n') %}
+              <div class="card-text text-muted caption-overflow">
+                {{ post['caption'] }}
+                <!-- {% for line in post['caption'].split('\n') %}
                   {{ line }}<br>
-                {% endfor %}
-              </p>
+                {% endfor %} -->
+              </div>
             </div>
             <div class="card-footer">
               {{ post["published_date"] }}
@@ -73,7 +89,6 @@
     {% endfor %}
   </div>
 </div>
-
 
 <script src="{{ url_for('static', filename='js/posts.js') }}"></script>
 {% endblock body %}
