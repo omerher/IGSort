@@ -24,3 +24,37 @@ body {
 .show {
     display: block;
 }
+
+.post-thumbnail {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #dee2e6;
+    position: relative;
+    border-top-left-radius: 0.1875rem;
+    border-top-right-radius: 0.1875rem;
+    overflow: hidden;
+}
+
+.post-img-cover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.post-thumbnail:hover .post-img-cover {
+    opacity: 1;
+}
+
+.caption-overflow {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

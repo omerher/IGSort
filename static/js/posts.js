@@ -48,3 +48,10 @@ for (var i = 0; i < btns.length; i++) {
     this.classList.toggle("btn-secondary")
   });
 }
+
+var captions = document.querySelectorAll(".caption-overflow");
+for (i = 0; i < captions.length; i++) {
+  captions[i].addEventListener('click', function () {
+    this.classList.toggle('caption-overflow')
+  })
+}
