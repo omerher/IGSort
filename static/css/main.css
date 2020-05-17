@@ -17,3 +17,13 @@ body {
     }
 }
 
+#more-info-box{
+    transition: background-color 1s ease-in-out;
+    transition-delay: 0s;
+    border-radius: 40px;
+}
+#more-info-button{
+    cursor: pointer;
+}
+
+
