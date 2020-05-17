@@ -70,9 +70,9 @@
           <div class="card" style="padding: 0;">
             <div class="post-thumbnail">
               <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
-              <div class="post-img-cover d-flex justify-content-center align-content-center">
-                <div style="height: fit-content;">
-                  <button class="btn btn-primary">Button</button>
+              <div class="post-img-cover">
+                <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                  <a class="btn btn-primary" href="{{ post['link'] }}" target="blank">Go To Post</a>
                 </div>
               </div>
             </div>
