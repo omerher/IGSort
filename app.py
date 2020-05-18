@@ -7,7 +7,6 @@ app.secret_key = '1234'
 
 @app.route('/')
 def index():
-    session["alert"] = False
     return render_template("index.html")
 
 @app.route('/about/')
