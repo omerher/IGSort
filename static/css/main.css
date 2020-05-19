@@ -8,7 +8,7 @@ body {
 }
 
 #profile-picture {
-    width: 64px;
+    width: 150px;
 }
 
 @media (min-width: 768px) {
@@ -16,16 +16,6 @@ body {
         width: 200px;
     }
 }
-
-#more-info-box {
-    transition: background-color 1s ease-in-out;
-    transition-delay: 0s;
-    border-radius: 40px;
-}
-#more-info-button {
-    cursor: pointer;
-}
-
 
 .filterDiv {
     display: none;
@@ -52,9 +42,6 @@ body {
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.65);
-    display: flex;
-    align-content: center;
-    justify-content: center;
     opacity: 0;
     transition: 0.3s;
 }
