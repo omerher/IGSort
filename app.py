@@ -29,9 +29,23 @@ def about():
 def submit():
     if request.method == "POST":
         username = request.form["username"]
+        num_posts = request.form["numPosts"]
+
+        if not username:
+            flash("Username was not entered.")
+            return redirect(url_for('index'))
+
+        if not num_posts:
+            flash("Number of posts was not entered.")
+            return redirect(url_for('index'))
+        elif "." in num_posts:
+            num_posts = int(float(num_posts))
+        else:
+            num_posts = int(num_posts)
+
         if "@" in username:
             username.strip("@")
-        
+
         # check for errors with accounts to minimize bugs
         allowed_str = "abcdefghijklmnopqrstuvwxyz1234567890_."
         for c in username:
@@ -49,7 +63,7 @@ def submit():
             flash("We can't analyze private accounts. Try again with a public account.")
             return redirect(url_for('index'))
         
-        num_posts = int(request.form["numPosts"])
+
         data = utils.scrape(username, num_posts)
         session['data'] = data
         session['username'] = username
