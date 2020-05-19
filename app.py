@@ -58,14 +58,18 @@ def submit():
         
         return redirect(url_for('top_posts'))
 
-@app.route('/posts/')  # , methods=['GET', 'POST']
+@app.route('/posts/', methods=['GET', 'POST'])
 def top_posts():
     data = session['data']
     username = session['username']
     num_posts = session['num_posts']
     profile = session['profile']
     
-    return render_template('posts.html', username=username, num_posts=num_posts, data=data, profile=profile)
+    if data != {}:
+        return render_template('posts.html', username=username, num_posts=num_posts, data=data, profile=profile)
+    else:
+        flash("Enter a username and number of posts to start analyzing the account.")
+        return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
