@@ -1,20 +1,32 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask_session import Session
+from redis import Redis
 import utils
 import time
 
 app = Flask(__name__)
 app.secret_key = '1234'
+SESSION_TYPE = 'redis'
+SESSION_REDIS = Redis(host="127.0.0.1", port=6379)
+app.config.from_object(__name__)
+Session(app)
+
 
 @app.route('/')
 def index():
+    session['data'] = {}
+    session['username'] = ""
+    session['num_posts'] = 0
+    session['profile'] = ""
+    
     return render_template("index.html")
 
 @app.route('/about/')
 def about():
     return render_template("about.html")
 
-@app.route('/posts/', methods=['GET', 'POST'])
-def top_posts():
+@app.route('/submit/', methods=['POST'])
+def submit():
     if request.method == "POST":
         username = request.form["username"]
         if "@" in username:
@@ -39,11 +51,21 @@ def top_posts():
         
         num_posts = int(request.form["numPosts"])
         data = utils.scrape(username, num_posts)
+        session['data'] = data
+        session['username'] = username
+        session['num_posts'] = num_posts
+        session['profile'] = profile
         
-        return render_template('posts.html', username=username, num_posts=num_posts, data=data, profile=profile)
-    else:
-        flash("You silly goose! You can't go straight to that page!")
-        return redirect(url_for('index'))
+        return redirect(url_for('top_posts'))
+
+@app.route('/posts/')  # , methods=['GET', 'POST']
+def top_posts():
+    data = session['data']
+    username = session['username']
+    num_posts = session['num_posts']
+    profile = session['profile']
+    
+    return render_template('posts.html', username=username, num_posts=num_posts, data=data, profile=profile)
 
 if __name__ == "__main__":
     app.run(debug=True)
