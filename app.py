@@ -14,6 +14,7 @@ Session(app)
 
 @app.route('/')
 def index():
+    session['username'] = ""
     session['data'] = {}
     session['num_posts'] = 0
     session['profile'] = ""
