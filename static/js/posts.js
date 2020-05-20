@@ -36,18 +36,18 @@ function removeClass(element, name) {
   element.className = arr1.join(" ");
 }
 
-// Add active class to the current control button (highlight it)
-var btnContainer = document.getElementById("filterButtons");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    var current = document.querySelector(".btn-primary");
-    current.classList.toggle("btn-primary")
-    current.classList.toggle("btn-secondary")
-    this.classList.toggle("btn-primary")
-    this.classList.toggle("btn-secondary")
-  });
-}
+// // Add active class to the current control button (highlight it)
+// var btnContainer = document.getElementById("filterButtons");
+// var btns = btnContainer.getElementsByClassName("btn");
+// for (var i = 0; i < btns.length; i++) {
+//   btns[i].addEventListener("click", function() {
+//     var current = document.querySelector(".btn-primary");
+//     current.classList.toggle("btn-primary")
+//     current.classList.toggle("btn-secondary")
+//     this.classList.toggle("btn-primary")
+//     this.classList.toggle("btn-secondary")
+//   });
+// }
 
 var captions = document.querySelectorAll(".caption-overflow");
 for (i = 0; i < captions.length; i++) {
