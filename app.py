@@ -30,10 +30,11 @@ def submit():
         username = request.form["username"]
         num_posts = request.form["numPosts"]
 
+        # handles all the errors and formats
         if not username:
             flash("Username was not entered.")
             return redirect(url_for('index'))
-
+        
         if not num_posts:
             flash("Number of posts was not entered.")
             return redirect(url_for('index'))
@@ -45,7 +46,6 @@ def submit():
         if "@" in username:
             username.strip("@")
 
-        # check for errors with accounts to minimize bugs
         allowed_str = "abcdefghijklmnopqrstuvwxyz1234567890_."
         for c in username:
             if c not in allowed_str:
@@ -56,7 +56,11 @@ def submit():
             flash("Usernames can not be over 30 characters.")
             return redirect(url_for('index'))
         
+        
         profile = utils.get_user_info(username)
+        if isinstance(profile, str):
+            flash(profile)
+            return redirect(url_for('index'))
         
         if profile["is_private"]:
             flash("We can't analyze private accounts. Try again with a public account.")
@@ -64,6 +68,10 @@ def submit():
         
 
         data = utils.scrape(username, num_posts)
+        if isinstance(data, str):
+            flash(data)
+            return redirect(url_for('index'))
+        
         session['data'] = data
         session['username'] = username
         session['num_posts'] = num_posts

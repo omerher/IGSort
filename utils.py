@@ -54,7 +54,10 @@ class InstagramScaper:
             info = self.get_user_info(account_id, max_id)  # get targeted user's posts
 
             # parse through all posts
-            posts = [post['node'] for post in info["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
+            try:
+                posts = [post['node'] for post in info["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
+            except KeyError:
+                return "An error has occurred. Please try again later."
             for post in posts:
                 likes = post["edge_media_preview_like"]["count"]
                 comments = post["edge_media_to_comment"]["count"]
@@ -105,6 +108,9 @@ def scrape(acc, num_posts):
 
 def get_user_info(account):
     r = requests.get(f"https://www.instagram.com/{account}/?__a=1").json()
+
+    if r == {}:
+        return "User does not exist. Check for any spelling mistakes."
 
     username = account
     full_name = r["graphql"]["user"]["full_name"]
