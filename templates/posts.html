@@ -49,8 +49,7 @@
   </div>
 </div>
 
-<!-- Removes filter buttons for now until they are fixed
-<div class="filters-div mt-4">
+<!-- <div class="filters-div mt-4">
   <div class="container text-center">
     <div id="filterButtons" class="btn-group btn-group-lg" role="group" aria-label="Filter buttons group">
       <button type="button" class="btn btn-primary" onclick="filterSelection('all')">All</button>
@@ -61,11 +60,11 @@
   </div>
 </div> -->
 
-<div class="container mt-5">
+<div class="container mt-4">
   <div class="grid">
       {% for post in data %}
         
-        <div class="grid-item card {% if loop.index == 1 %} grid-sizer {% endif %}" style="padding: 0;">
+        <div class="grid-item card {% if loop.index == 1 %} grid-sizer {% endif %} {{ post['media_type'] }} filterDiv" style="padding: 0;">
           <div class="post-thumbnail">
             <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
             <div class="post-img-cover">

@@ -1,3 +1,17 @@
+var $grid = $('.grid');
+$grid.imagesLoaded(function(){
+  $grid.masonry({
+  columnWidth: '.grid-sizer',
+  itemSelector: '.grid-item',
+  horizontalOrder: true,
+  gutter: 20,
+  transitionDuration: '0.2s',
+  initLayout: false
+  });
+});
+
+$grid.masonry();
+
 filterSelection("all")
 
 function filterSelection(c) {
@@ -55,14 +69,3 @@ for (i = 0; i < captions.length; i++) {
     this.classList.toggle('caption-overflow')
   })
 }
-
-var $container = $('.grid');
-$container.imagesLoaded(function(){
-  $container.masonry({
-  columnWidth: '.grid-sizer',
-  itemSelector: '.grid-item',
-  horizontalOrder: true,
-  gutter: 20,
-  transitionDuration: '0.2s'
-  });
-});
