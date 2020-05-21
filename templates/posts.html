@@ -85,7 +85,9 @@
               | {{ '{:,}'.format(post["comments"]) }} comments
             </p>
             <div class="card-text text-muted">  <!-- optional class: caption-overflow -->
-              {{ post['caption'] }}
+                {% for line in post['caption'].split('\n') %}
+                  {{ line }}<br>
+                {% endfor %}
             </div>
           </div>
           <div class="card-footer">
