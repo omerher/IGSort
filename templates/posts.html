@@ -49,7 +49,11 @@
   </div>
 </div>
 
-<!-- <div class="filters-div mt-4">
+<a class="btn btn-outline-primary" href="{{ url_for('download_file') }}" role="button">Download as Excel</a>
+
+
+<!-- Removes filter buttons for now until they are fixed
+<div class="filters-div mt-4">
   <div class="container text-center">
     <div id="filterButtons" class="btn-group btn-group-lg" role="group" aria-label="Filter buttons group">
       <button type="button" class="btn btn-primary" onclick="filterSelection('all')">All</button>
@@ -60,11 +64,12 @@
   </div>
 </div> -->
 
-<div class="container mt-4">
+<div class="container mt-5">
+
   <div class="grid">
       {% for post in data %}
         
-        <div class="grid-item card {% if loop.index == 1 %} grid-sizer {% endif %} {{ post['media_type'] }} filterDiv" style="padding: 0;">
+        <div class="grid-item card {% if loop.index == 1 %} grid-sizer {% endif %}" style="padding: 0;">
           <div class="post-thumbnail">
             <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
             <div class="post-img-cover">
@@ -76,7 +81,7 @@
           
           <div class="card-body">
             <p class="card-title">
-              <a href="{{ post['link'] }}" target="blank">{{ post["media_type"] }}</a> ·
+              <a href="{{ post['link'] }}" target="_self">{{ post["media_type"] }}</a> ·
               <strong>{{ '{:,}'.format(post["likes"]) }} likes</strong>
               {% if post["media_type"] == "Video" %}
                 ({{ '{:,}'.format(post["views"]) }} views)

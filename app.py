@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_session import Session
 from redis import Redis
+import flask_excel as excel
 import utils
 import time
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = '1234'
@@ -92,6 +94,12 @@ def top_posts():
     else:
         flash("Enter a username and number of posts to start analyzing the account.")
         return redirect(url_for('index'))
+    
+@app.route('/download/')
+def download_file():
+    file_name = f"{session['username']}_{datetime.utcfromtimestamp(time.time()).strftime('%Y.%m.%d - %H.%M.%S')}" 
+    return excel.make_response_from_records(session['data'], 'csv', file_name=file_name)
 
 if __name__ == "__main__":
+    excel.init_excel(app)
     app.run(debug=True)
