@@ -43,5 +43,6 @@ redis/dump.rdb
 
 # pycache
 __pycache__/
+venv/Lib/__pycache__
 
 # End of https://www.gitignore.io/api/windows,visualstudiocode
