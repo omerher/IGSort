@@ -62,6 +62,7 @@ $container.imagesLoaded(function(){
   columnWidth: '.grid-sizer',
   itemSelector: '.grid-item',
   horizontalOrder: true,
-  gutter: 20
+  gutter: 20,
+  transitionDuration: '0.2s'
   });
 });
