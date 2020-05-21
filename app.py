@@ -5,6 +5,7 @@ import flask_excel as excel
 import utils
 import time
 from datetime import datetime
+from collections import OrderedDict
 
 app = Flask(__name__)
 app.secret_key = '1234'
@@ -94,11 +95,30 @@ def top_posts():
     else:
         flash("Enter a username and number of posts to start analyzing the account.")
         return redirect(url_for('index'))
-    
-@app.route('/download/')
+
+
+@app.route('/download_file')
 def download_file():
-    file_name = f"{session['username']}_{datetime.utcfromtimestamp(time.time()).strftime('%Y.%m.%d - %H.%M.%S')}" 
-    return excel.make_response_from_records(session['data'], 'csv', file_name=file_name)
+    file_name = f"{session['username']}_{datetime.utcfromtimestamp(time.time()).strftime('%Y.%m.%d-%H.%M.%S')}.csv" 
+    
+    data = session['data']
+    
+    file_data = []
+    for post in data:
+        post_dict = OrderedDict()
+        post_dict['Likes'] = post['likes']
+        post_dict['Comments'] = post['comments']
+        if post['views']:
+            post_dict['Views'] = post['views']
+        else:
+            post_dict['Views'] = "N/A"
+        post_dict['Media Type'] = post['media_type']
+        post_dict['Link'] = post['link']
+        post_dict['Publish Date'] = post['published_date']
+        
+        file_data.append(post_dict)
+    
+    return excel.make_response_from_records(file_data, 'csv', file_name=file_name)
 
 if __name__ == "__main__":
     excel.init_excel(app)

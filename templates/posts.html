@@ -49,7 +49,11 @@
   </div>
 </div>
 
-<a class="btn btn-outline-primary" href="{{ url_for('download_file') }}" role="button">Download as Excel</a>
+<div class="container mt-4">
+  <div class="d-flex justify-content-center">
+    <a class="btn btn-outline-primary" href="{{ url_for('download_file') }}" role="button">Download as Excel</a>
+  </div>
+</div>
 
 <!-- Removes filter buttons for now until they are fixed
 <div class="filters-div mt-4">
@@ -63,7 +67,7 @@
   </div>
 </div> -->
 
-<div class="container mt-5">
+<div class="container mt-4">
 
   <div class="grid">
       {% for post in data %}
