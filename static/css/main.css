@@ -74,3 +74,31 @@ SVG Icons - svgicons.sparkk.fr
     stroke: #4691f6;
     stroke-width: 1;
   }
+
+.grid-item {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 576px) {
+    .grid-item {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .grid-item {
+        width: 48%;
+    }
+}
+
+@media (min-width: 992px) {
+    .grid-item {
+        width: 31%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .grid-item {
+        width: 32%;
+    }
+}

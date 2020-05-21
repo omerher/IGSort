@@ -55,3 +55,13 @@ for (i = 0; i < captions.length; i++) {
     this.classList.toggle('caption-overflow')
   })
 }
+
+var $container = $('.grid');
+$container.imagesLoaded(function(){
+  $container.masonry({
+  columnWidth: '.grid-sizer',
+  itemSelector: '.grid-item',
+  horizontalOrder: true,
+  gutter: 20
+  });
+});

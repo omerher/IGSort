@@ -28,7 +28,7 @@ def about():
 @app.route('/submit/', methods=['POST'])
 def submit():
     if request.method == "POST":
-        username = request.form["username"]
+        username = request.form["username"].lower()
         num_posts = request.form["numPosts"]
 
         # handles all the errors and formats
