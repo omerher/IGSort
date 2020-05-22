@@ -13,7 +13,7 @@ def get_id(username):
 
 
 def get_user_num_posts(account):
-        r = requests.get(f"https://www.instagram.com/{account}/?__a=1")
+        r = requests.get("https://www.instagram.com/{}/?__a=1".format(account))
         r_json = json.loads(r.text)
         return r_json["graphql"]["user"]["edge_owner_to_timeline_media"]["count"]
         # json.decoder.JSONDecodeError
@@ -61,7 +61,7 @@ class InstagramScaper:
             for post in posts:
                 likes = post["edge_media_preview_like"]["count"]
                 comments = post["edge_media_to_comment"]["count"]
-                link = f"https://instagram.com/p/{post['shortcode']}/"
+                link = "https://instagram.com/p/{}/".format(post['shortcode'])
                 media_type = get_media_type(post["__typename"])
                 try:
                     caption = post["edge_media_to_caption"]["edges"][0]["node"]["text"]
@@ -107,7 +107,7 @@ def scrape(acc, num_posts):
     return scraper.data
 
 def get_user_info(account):
-    r = requests.get(f"https://www.instagram.com/{account}/?__a=1").json()
+    r = requests.get("https://www.instagram.com/{}/?__a=1").format(account).json()
 
     if r == {}:
         return "User does not exist. Check for any spelling mistakes."
