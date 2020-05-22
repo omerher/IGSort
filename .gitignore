@@ -177,4 +177,7 @@ $RECYCLE.BIN/
 # redis dump
 redis/dump.rdb
 
+# azure
+.azure/
+
 # End of https://www.gitignore.io/api/windows,visualstudiocode
