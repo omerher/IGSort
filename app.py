@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_session import Session
-from redis import Redis
+import redis
 import flask_excel as excel
 import utils
 import time
@@ -8,9 +8,14 @@ from datetime import datetime
 from collections import OrderedDict
 
 app = Flask(__name__)
+app.static_folder = 'static'
 app.secret_key = '1234'
 SESSION_TYPE = 'redis'
-SESSION_REDIS = Redis(host="127.0.0.1", port=6379)
+
+r = redis.StrictRedis(host='ig-sort.redis.cache.windows.net',
+        port=6380, db=0, password='xpB8GGNx8Wqj8J1Rl1RmtB9Sg2at3eyWnzbCv8kbI8U=', ssl=True)
+
+SESSION_REDIS = r
 app.config.from_object(__name__)
 Session(app)
 
