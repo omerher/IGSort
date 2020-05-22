@@ -107,7 +107,7 @@ def scrape(acc, num_posts):
     return scraper.data
 
 def get_user_info(account):
-    r = requests.get("https://www.instagram.com/{}/?__a=1").format(account).json()
+    r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
 
     if r == {}:
         return "User does not exist. Check for any spelling mistakes."
