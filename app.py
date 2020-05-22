@@ -100,7 +100,7 @@ def top_posts():
 @app.route('/download_file')
 def download_file():
     local_time = time.time() - int(request.cookies.get('localTimeZoneOffset'))*60
-    file_name = f"{session['username']}-{datetime.utcfromtimestamp(local_time).strftime('%Y.%m.%d-%H.%M.%S')}" 
+    file_name = "{}-{}".format(session['username'], datetime.utcfromtimestamp(local_time).strftime('%Y.%m.%d-%H.%M.%S'))
     
     data = session['data']
     
