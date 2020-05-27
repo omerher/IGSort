@@ -43,8 +43,6 @@ class InstagramScaper:
         self.data = []
 
         # check if the account has enough posts
-
-        # CURRENTLY NOT WORKING
         user_posts = get_user_num_posts(account)
         if num_posts > user_posts:
             num_posts = user_posts - 1
@@ -106,6 +104,7 @@ def scrape(acc, num_posts):
     scraper.get_user_posts(acc, num_posts)
     return scraper.data
 
+
 def get_user_info(account):
     r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
 
@@ -126,3 +125,29 @@ def get_user_info(account):
                     "bio": bio, "is_private": is_private, "is_verified": is_verified, "profile_picture": profile_picture,
                     "posts_count": posts_count}
     return account_info
+
+
+def get_post_info(link):
+    url = f"{link}?__a=1"
+    return requests.get(url).json()
+
+
+def get_post_media(link):
+    info = get_post_info(link)
+
+    # handle different paths for different media type
+    if info["graphql"]["shortcode_media"]["__typename"] == "GraphImage":
+        media = [info["graphql"]["shortcode_media"]["display_url"]]
+    elif info["graphql"]["shortcode_media"]["__typename"] == "GraphVideo":
+        media = [info["graphql"]["shortcode_media"]["video_url"]]
+    elif info["graphql"]["shortcode_media"]["__typename"] == "GraphSidecar":
+        media = []
+        for content in info["graphql"]["shortcode_media"]["edge_sidecar_to_children"]["edges"]:
+            if content["node"]["__typename"] == "GraphImage":
+                media.append(content["node"]["display_url"])
+            elif content["node"]["__typename"] == "GraphVideo":
+                media.append(content["node"]["video_url"])
+    else:
+        media = []
+
+    return media
