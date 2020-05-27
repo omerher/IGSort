@@ -102,3 +102,12 @@ SVG Icons - svgicons.sparkk.fr
         width: 32%;
     }
 }
+
+.post_icon {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    right: 10px;
+    top: 10px;
+    color: white;
+}

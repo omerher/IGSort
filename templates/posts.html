@@ -74,6 +74,12 @@
         
         <div class="grid-item card {% if loop.index == 1 %} grid-sizer {% endif %}" style="padding: 0;">
           <div class="post-thumbnail">
+            {% if post['media_type'] == 'Carousel' %}
+            <img class="post_icon" src="{{ url_for('static', filename='imgs/carousel_icon.png') }}" alt="Carousel Icon">
+            {% endif %}
+            {% if post['media_type'] == 'Video' %}
+            <i class="fas fa-video post_icon"></i>
+            {% endif %}
             <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
             <div class="post-img-cover">
               <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
