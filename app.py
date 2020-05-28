@@ -129,8 +129,9 @@ def download_file():
 @app.route('/_download_post')
 def download_post():
     link = request.args.get('link', None, type=str)
-    media = utils.get_post_media(link)
-    return jsonify(media=media)
+    number = request.args.get('number', 0, type=str)
+    content = utils.get_post_media(link)
+    return jsonify(content=content, number=number)
 
 if __name__ == "__main__":
     excel.init_excel(app)

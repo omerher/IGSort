@@ -73,10 +73,26 @@ for (i = 0; i < captions.length; i++) {
 $(function() {
   $('.download-post-btn').bind('click', function() {
     $.getJSON($SCRIPT_ROOT + '/_download_post', {
-      link: $(this).attr('data-link')
+      link: $(this).attr('data-link'),
+      number: $(this).attr('data-number')
     }, function(data) {
-      console.log(data.media);
-    });
+      for (i = 0; i < data.content.length; i++) {
+        fetch(data.content[i].media)
+        .then(resp => resp.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          // the filename you want
+          a.download = data.number;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => alert('Something went wrong! Please try again later'));
+      };
+        });
     return false;
   });
 });

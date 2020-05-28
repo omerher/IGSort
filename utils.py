@@ -135,19 +135,28 @@ def get_post_info(link):
 def get_post_media(link):
     info = get_post_info(link)
 
+    response = []
+    
     # handle different paths for different media type
     if info["graphql"]["shortcode_media"]["__typename"] == "GraphImage":
-        media = [info["graphql"]["shortcode_media"]["display_url"]]
+        media = info["graphql"]["shortcode_media"]["display_url"]
+        suffix = ".jpg"
+        response.append({'media': media, 'suffix': suffix})
     elif info["graphql"]["shortcode_media"]["__typename"] == "GraphVideo":
-        media = [info["graphql"]["shortcode_media"]["video_url"]]
+        media = info["graphql"]["shortcode_media"]["video_url"]
+        suffix = ".mp4"
+        response.append({'media': media, 'suffix': suffix})
     elif info["graphql"]["shortcode_media"]["__typename"] == "GraphSidecar":
-        media = []
         for content in info["graphql"]["shortcode_media"]["edge_sidecar_to_children"]["edges"]:
             if content["node"]["__typename"] == "GraphImage":
-                media.append(content["node"]["display_url"])
+                media = content["node"]["display_url"]
+                suffix = ".jpg"
+                response.append({'media': media, 'suffix': suffix})
             elif content["node"]["__typename"] == "GraphVideo":
                 media.append(content["node"]["video_url"])
+                suffix = ".mp4"
+                response.append({'media': media, 'suffix': suffix})
     else:
-        media = []
+        response = []
 
-    return media
+    return response
