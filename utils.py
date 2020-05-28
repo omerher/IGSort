@@ -1,6 +1,7 @@
 import json
 import requests
 from datetime import datetime
+import re
 
 
 def get_id(username):
