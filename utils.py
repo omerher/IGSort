@@ -131,7 +131,7 @@ def get_user_info(account):
 def get_post_info(link):
     try:
         url = f"{link}?__a=1"
-        return requests.get(url).json()
+        json_data = requests.get(url).json()
     except json.decoder.JSONDecodeError:
         r = requests.get(link).text
         # find json in the html with regex, get first item from list then from tuple, and remove last semicolon
@@ -139,7 +139,7 @@ def get_post_info(link):
         x = x.split('{"PostPage":[')[1].split(']},"hostname"')[0]  # cut JS text at the beginning and at the end
         json_data = json.loads(x)
 
-        return json_data
+    return json_data
 
 
 def get_post_media(link):
