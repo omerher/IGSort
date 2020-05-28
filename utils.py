@@ -43,10 +43,10 @@ class InstagramScaper:
         account_id = get_id(account)
         self.data = []
 
-        # check if the account has enough posts
-        user_posts = get_user_num_posts(account)
-        if num_posts > user_posts:
-            num_posts = user_posts - 1
+        ## check if the account has enough posts
+        # user_posts = get_user_num_posts(account)
+        # if num_posts > user_posts:
+        #     num_posts = user_posts - 1
 
         max_id = ""
         while len(self.data) < num_posts:
@@ -85,8 +85,11 @@ class InstagramScaper:
                     "views": views
                 }
                 self.data.append(post_dict)
-
-            max_id = info["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["end_cursor"]  # get max id for next batch
+            
+            if not info["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["has_next_page"]:  # check if more posts are available
+                break
+            
+            max_id = info["data"]["user"]["edge_owner_to_timeline_media"]["page_info"]["end_cursor"]  # get max id for next batch            
 
         self.data = self.data[:num_posts]  # removes last posts to match number of posts requested
         self.sort_posts()
@@ -132,7 +135,7 @@ def get_post_info(link):
     try:
         url = f"{link}?__a=1"
         json_data = requests.get(url).json()
-    except json.decoder.JSONDecodeError:
+    except:
         r = requests.get(link).text
         # find json in the html with regex, get first item from list then from tuple, and remove last semicolon
         x = re.findall('<script type="text\/javascript">' + '([^{]+?({.*graphql.*})[^}]+?)' + '<\/script>', r)[0][0][:-1]
@@ -163,7 +166,7 @@ def get_post_media(link):
                 suffix = ".jpg"
                 response.append({'media': media, 'suffix': suffix})
             elif content["node"]["__typename"] == "GraphVideo":
-                media.append(content["node"]["video_url"])
+                media = (content["node"]["video_url"])
                 suffix = ".mp4"
                 response.append({'media': media, 'suffix': suffix})
     else:
