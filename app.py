@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_session import Session
 import redis
 import flask_excel as excel
@@ -125,6 +125,12 @@ def download_file():
         file_data.append(post_dict)
     
     return excel.make_response_from_records(file_data, 'csv', file_name=file_name)
+
+@app.route('/_download_post')
+def download_post():
+    link = request.args.get('link', None, type=str)
+    media = utils.get_post_media(link)
+    return jsonify(media=media)
 
 if __name__ == "__main__":
     excel.init_excel(app)

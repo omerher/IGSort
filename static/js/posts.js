@@ -63,9 +63,29 @@ function removeClass(element, name) {
 //   });
 // }
 
-var captions = document.querySelectorAll(".caption-overflow");
+const captions = document.querySelectorAll(".caption-overflow");
 for (i = 0; i < captions.length; i++) {
   captions[i].addEventListener('click', function () {
     this.classList.toggle('caption-overflow')
   })
 }
+
+$(function() {
+  $('.download-post-btn').bind('click', function() {
+    $.getJSON($SCRIPT_ROOT + '/_download_post', {
+      link: $(this).attr('data-link')
+    }, function(data) {
+      console.log(data.media);
+    });
+    return false;
+  });
+});
+
+// $('.download-post-btn').click(function() {
+//   $.download1($SCRIPT_ROOT + '/_download_post', {
+//     link: $(this).attr('id')
+//   }, function(data) {
+//     console.log(data.link)
+//   });
+//   return false;
+// });

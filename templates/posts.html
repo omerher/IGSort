@@ -83,7 +83,8 @@
             <img class="card-img-top" src="{{ post['thumbnail'] }}" alt="Post thumbnail">
             <div class="post-img-cover">
               <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                <a class="btn btn-primary" href="{{ post['link'] }}" target="blank">Go To Post</a>
+                <a class="btn btn-primary" href="{{ post['link'] }}" target="_blank">Go To Post</a>
+                <button type="button" class="btn btn-primary ml-3 download-post-btn" data-link="{{ post['link'] }}">Download</button>
               </div>
             </div>
           </div>
