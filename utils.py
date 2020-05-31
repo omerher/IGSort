@@ -110,13 +110,13 @@ def scrape(acc, num_posts):
 
 
 def get_user_info(account):
-    r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
+    try:
+        r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
+    except json.decoder.JSONDecodeError:
+        return {"error": True, "message": "Profile information could not be loaded at the current time. Top posts work as intented.", "code": 2}
 
     if r == {}:
         return {"error": True, "message": "User does not exist. Check for any spelling mistakes.", "code": 1}
-    
-    if isinstance(r, str):
-        return {"error": True, "message": "Profile information could not be loaded at the current time. Top posts work as intented.", "code": 2}
 
     username = account
     full_name = r["graphql"]["user"]["full_name"]
