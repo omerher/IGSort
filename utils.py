@@ -113,7 +113,10 @@ def get_user_info(account):
     r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
 
     if r == {}:
-        return "User does not exist. Check for any spelling mistakes."
+        return {"error": True, "message": "User does not exist. Check for any spelling mistakes.", "code": 1}
+    
+    if isinstance(r, str):
+        return {"error": True, "message": "Profile information could not be loaded at the current time. Top posts work as intented.", "code": 2}
 
     username = account
     full_name = r["graphql"]["user"]["full_name"]
@@ -125,7 +128,7 @@ def get_user_info(account):
     profile_picture = r["graphql"]["user"]["profile_pic_url_hd"]
     posts_count = r["graphql"]["user"]["edge_owner_to_timeline_media"]["count"]
 
-    account_info = {"username": username, "full_name": full_name, "followers": followers, "following": following,
+    account_info = {"error": False, "username": username, "full_name": full_name, "followers": followers, "following": following,
                     "bio": bio, "is_private": is_private, "is_verified": is_verified, "profile_picture": profile_picture,
                     "posts_count": posts_count}
     return account_info

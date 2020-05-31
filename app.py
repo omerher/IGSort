@@ -67,11 +67,14 @@ def submit():
         
         
         profile = utils.get_user_info(username)
-        if isinstance(profile, str):
-            flash(profile)
-            return redirect(url_for('index'))
+        if profile["error"]:
+            if profile["code"] == 1:
+                flash(profile["message"])
+                return redirect(url_for('index'))
+            elif profile["code"] == 2:
+                flash(profile["message"])
         
-        if profile["is_private"]:
+        elif profile["is_private"]:
             flash("We can't analyze private accounts. Try again with a public account.")
             return redirect(url_for('index'))
         
