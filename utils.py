@@ -56,7 +56,7 @@ class InstagramScaper:
             try:
                 posts = [post['node'] for post in info["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
             except KeyError:
-                return "An error has occurred. Please try again later."
+                return {"error": True, "response": "An error has occurred. Please try again later.", "code": 3}
             for post in posts:
                 likes = post["edge_media_preview_like"]["count"]
                 comments = post["edge_media_to_comment"]["count"]
@@ -106,17 +106,17 @@ class InstagramScaper:
 def scrape(acc, num_posts):
     scraper = InstagramScaper()
     scraper.get_user_posts(acc, num_posts)
-    return scraper.data
+    return {"error": False, "response": scraper.data}
 
 
 def get_user_info(account):
-    r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
+    try:
+        r = requests.get("https://www.instagram.com/{}/?__a=1".format(account)).json()
+    except json.decoder.JSONDecodeError:
+        return {"error": True, "response": "Profile information could not be loaded at the current time. Top posts work as intented.", "code": 2}
 
     if r == {}:
-        return {"error": True, "message": "User does not exist. Check for any spelling mistakes.", "code": 1}
-    
-    if isinstance(r, str):
-        return {"error": True, "message": "Profile information could not be loaded at the current time. Top posts work as intented.", "code": 2}
+        return {"error": True, "response": "User does not exist. Check for any spelling mistakes.", "code": 1}
 
     username = account
     full_name = r["graphql"]["user"]["full_name"]
