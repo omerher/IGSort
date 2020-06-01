@@ -81,7 +81,7 @@ def submit():
 
         response = utils.scrape(username, num_posts)
         if response["error"]:
-            flash(response["message"])
+            flash(response["response"])
             return redirect(url_for('index'))
         else:
             data = response["response"]
